@@ -56,6 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _idController;
   TextEditingController _seekToController;
 
+  final searchController = TextEditingController();
+
   PlayerState _playerState;
   YoutubeMetaData _videoMetaData;
   double _volume = 100;
@@ -63,8 +65,8 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isPlayerReady = false;
 
   final List<String> _ids = [
-    'nPt8bK2gbaU',
     'gQDByCdjUXw',
+    'nPt8bK2gbaU',
     'iLnmTe5Q2Qw',
     '_WoCV4c6XOE',
     'KmzdUe0RSJo',
@@ -157,41 +159,82 @@ class _MyHomePageState extends State<MyHomePage> {
         onReady: () {
           _isPlayerReady = true;
         },
-        onEnded: (data) {
-          _controller
-              .load(_ids[(_ids.indexOf(data.videoId) + 1) % _ids.length]);
-          _showSnackBar('Next Video Started!');
-        },
+        // onEnded: (data) {
+        //   _controller
+        //       .load(_ids[(_ids.indexOf(data.videoId) + 1) % _ids.length]);
+        //   _showSnackBar('Next Video Started!');
+        // },
       ),
       builder: (context, player) => Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          // leading: Padding(
-          //   padding: const EdgeInsets.only(left: 12.0),
-          //   child: Image.asset(
-          //     'assets/ypf.png',
-          //     fit: BoxFit.fitWidth,
-          //   ),
-          // ),
-          title: const Text(
-            'Youtube Player Flutter',
-            style: TextStyle(color: Colors.white),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              const Text(
+                'Exp',
+                style: TextStyle(color: Colors.white),
+              ),
+              Container(
+                width: 200,
+                height: 30,
+                child: TextField(
+                  controller: searchController,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(
+                      left: 10,
+                      bottom: 13,
+                    ),
+                    border: InputBorder.none,
+                    hintText: 'Search',
+                    fillColor: Colors.white.withAlpha(80),
+                    filled: true,
+                    hintStyle: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                    ),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.search),
+                      color: Colors.white,
+                      onPressed: () => {},
+                      padding: EdgeInsets.only(
+                        bottom: 0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          // actions: [
-          //   IconButton(
-          //     icon: const Icon(Icons.video_library),
-          //     onPressed: () => Navigator.push(
-          //       context,
-          //       CupertinoPageRoute(
-          //         builder: (context) => VideoList(),
-          //       ),
-          //     ),
-          //   ),
-          // ],
         ),
         body: ListView(
           children: [
-            player,
+            _space,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  // children: getServiceWidgetsList(servicesList),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        color: Colors.redAccent,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            _space,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: player,
+            ),
+            // player,
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -199,6 +242,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   _space,
                   _text('Title', _videoMetaData.title),
+                  _text('Text', searchController.text),
                   _space,
                   _text('Channel', _videoMetaData.author),
                   _space,
