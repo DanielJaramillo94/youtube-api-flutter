@@ -152,6 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
               _controller.metadata.title,
               style: const TextStyle(
                 color: Colors.white,
+                fontFamily: 'Comfortaa',
                 fontSize: 18.0,
               ),
               overflow: TextOverflow.ellipsis,
@@ -353,7 +354,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ],
                           );
                         } else {
-                          return Text('No data');
+                          return Container();
                         }
                       })),
             ),
@@ -373,6 +374,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: const TextStyle(
                       color: Color(0xFF333333),
                       fontSize: 23.0,
+                      fontFamily: 'Comfortaa',
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -383,6 +385,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: const TextStyle(
                       color: Color(0xFF333333),
                       fontSize: 18.0,
+                      fontFamily: 'Comfortaa',
                       fontWeight: FontWeight.w300,
                     ),
                   ),
@@ -415,6 +418,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     thumbnailsStream.sink.add(thumbs);
     _isPlayerReady ? _controller.load(items[0]['id']['videoId']) : null;
+
+    onClickThumbnail(0);
   }
 
   onClickThumbnail(int index) async {

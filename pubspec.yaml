@@ -25,3 +25,10 @@ flutter:
 
   assets:
    - assets/exp-logo.png
+
+  fonts:
+  - family: Comfortaa
+    fonts:
+      - asset: assets/fonts/Comfortaa/Comfortaa-Bold.ttf
+      - asset: assets/fonts/Comfortaa/Comfortaa-Regular.ttf
+        # weight: 700
