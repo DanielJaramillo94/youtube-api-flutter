@@ -65,32 +65,26 @@ class _MyHomePageState extends State<MyHomePage> {
   StreamController<dynamic> streamController = StreamController();
   StreamController<dynamic> thumbnailsStream = StreamController();
 
-  // addData() async {
-  //   List<Color> colors = [Colors.red, Colors.blueAccent];
-  //   for (int i = 0; i < 2; i++) {
-  //     await Future.delayed(Duration(seconds: 2));
-  //     streamController.sink.add(colors[i]);
-  //     if (i == 1) {
-  //       i = -1;
-  //     }
-  //   }
-  // }
-
   PlayerState _playerState;
   YoutubeMetaData _videoMetaData;
   double _volume = 100;
   bool _muted = false;
   bool _isPlayerReady = false;
 
-  final List<String> _ids = [
+  List<dynamic> _ids = [
     'KzTeWPkUxQs',
+    'cILHRB8Syng',
+    '14ORlUCJhm4',
+    'Qely-s0qRaY',
+    'x0uinJvhNxI',
+    'XHsrxgoESz8',
   ];
 
-  final List<String> _thumbnails = [
+  List<dynamic> _thumbnails = [
     'https://i.ytimg.com/vi/KzTeWPkUxQs/default.jpg',
     'https://i.ytimg.com/vi/cILHRB8Syng/default.jpg',
-    'https://i.ytimg.com/vi/Qely-s0qRaY/default.jpg',
     'https://i.ytimg.com/vi/14ORlUCJhm4/default.jpg',
+    'https://i.ytimg.com/vi/Qely-s0qRaY/default.jpg',
     'https://i.ytimg.com/vi/D77DeiIOv14/default.jpg',
     'https://i.ytimg.com/vi/XHsrxgoESz8/default.jpg',
   ];
@@ -116,9 +110,6 @@ class _MyHomePageState extends State<MyHomePage> {
     _playerState = PlayerState.unknown;
 
     thumbnailsStream.sink.add(_thumbnails);
-
-    // searchController.addListener(() => {log(searchController.text)});
-    // addData();
   }
 
   void listener() {
@@ -206,7 +197,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   controller: searchController,
                   onSubmitted: (value) {
                     searchSubmit(value);
-                    // streamController.sink.add(Colors.yellowAccent);
                   },
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(
@@ -244,88 +234,116 @@ class _MyHomePageState extends State<MyHomePage> {
               child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: StreamBuilder(
-                      // stream: new Stream.fromIterable(
-                      //     [Colors.blueAccent, Colors.deepPurpleAccent]),
                       stream: thumbnailsStream.stream,
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return Row(
                             children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Container(
-                                  width: 100,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(snapshot.data[0]),
-                                        fit: BoxFit.cover),
+                              InkWell(
+                                onTap: () {
+                                  onClickThumbnail(0);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Container(
+                                    width: 100,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage(snapshot.data[0]),
+                                          fit: BoxFit.cover),
+                                    ),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Container(
-                                  width: 100,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(snapshot.data[1]),
-                                        fit: BoxFit.cover),
+                              InkWell(
+                                onTap: () {
+                                  onClickThumbnail(1);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Container(
+                                    width: 100,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage(snapshot.data[1]),
+                                          fit: BoxFit.cover),
+                                    ),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Container(
-                                  width: 100,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(snapshot.data[2]),
-                                        fit: BoxFit.cover),
+                              InkWell(
+                                onTap: () {
+                                  onClickThumbnail(2);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Container(
+                                    width: 100,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage(snapshot.data[2]),
+                                          fit: BoxFit.cover),
+                                    ),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Container(
-                                  width: 100,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(snapshot.data[3]),
-                                        fit: BoxFit.cover),
+                              InkWell(
+                                onTap: () {
+                                  onClickThumbnail(3);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Container(
+                                    width: 100,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage(snapshot.data[3]),
+                                          fit: BoxFit.cover),
+                                    ),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Container(
-                                  width: 100,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(snapshot.data[4]),
-                                        fit: BoxFit.cover),
+                              InkWell(
+                                onTap: () {
+                                  onClickThumbnail(4);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Container(
+                                    width: 100,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage(snapshot.data[4]),
+                                          fit: BoxFit.cover),
+                                    ),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Container(
-                                  width: 100,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(snapshot.data[5]),
-                                        fit: BoxFit.cover),
+                              InkWell(
+                                onTap: () {
+                                  onClickThumbnail(5);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Container(
+                                    width: 100,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage(snapshot.data[5]),
+                                          fit: BoxFit.cover),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -348,153 +366,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   _space,
                   _text('Title', _videoMetaData.title),
-                  _text('Text', searchController.text),
                   _space,
                   _text('Channel', _videoMetaData.author),
                   _space,
-                  _text('Video Id', _videoMetaData.videoId),
-                  _space,
-                  Row(
-                    children: [
-                      _text(
-                        'Playback Quality',
-                        _controller.value.playbackQuality,
-                      ),
-                      const Spacer(),
-                      _text(
-                        'Playback Rate',
-                        '${_controller.value.playbackRate}x  ',
-                      ),
-                    ],
-                  ),
-                  _space,
-                  // TextField(
-                  //   enabled: _isPlayerReady,
-                  //   controller: _idController,
-                  //   decoration: InputDecoration(
-                  //     border: InputBorder.none,
-                  //     hintText: 'Enter youtube \<video id\> or \<link\>',
-                  //     fillColor: Colors.blueAccent.withAlpha(20),
-                  //     filled: true,
-                  //     hintStyle: const TextStyle(
-                  //       fontWeight: FontWeight.w300,
-                  //       color: Colors.blueAccent,
-                  //     ),
-                  //     suffixIcon: IconButton(
-                  //       icon: const Icon(Icons.clear),
-                  //       onPressed: () => _idController.clear(),
-                  //     ),
-                  //   ),
-                  // ),
-
-                  _space,
-                  Row(
-                    children: [
-                      _loadCueButton('LOAD'),
-                      const SizedBox(width: 10.0),
-                      _loadCueButton('CUE'),
-                    ],
-                  ),
-                  _space,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.skip_previous),
-                        onPressed: _isPlayerReady
-                            ? () => _controller.load(_ids[
-                                (_ids.indexOf(_controller.metadata.videoId) -
-                                        1) %
-                                    _ids.length])
-                            : null,
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          _controller.value.isPlaying
-                              ? Icons.pause
-                              : Icons.play_arrow,
-                        ),
-                        onPressed: _isPlayerReady
-                            ? () {
-                                _controller.value.isPlaying
-                                    ? _controller.pause()
-                                    : _controller.play();
-                                setState(() {});
-                              }
-                            : null,
-                      ),
-                      IconButton(
-                        icon: Icon(_muted ? Icons.volume_off : Icons.volume_up),
-                        onPressed: _isPlayerReady
-                            ? () {
-                                _muted
-                                    ? _controller.unMute()
-                                    : _controller.mute();
-                                setState(() {
-                                  _muted = !_muted;
-                                });
-                              }
-                            : null,
-                      ),
-                      FullScreenButton(
-                        controller: _controller,
-                        color: Colors.blueAccent,
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.skip_next),
-                        onPressed: _isPlayerReady
-                            ? () => _controller.load(_ids[
-                                (_ids.indexOf(_controller.metadata.videoId) +
-                                        1) %
-                                    _ids.length])
-                            : null,
-                      ),
-                    ],
-                  ),
-                  _space,
-                  Row(
-                    children: <Widget>[
-                      const Text(
-                        "Volume",
-                        style: TextStyle(fontWeight: FontWeight.w300),
-                      ),
-                      Expanded(
-                        child: Slider(
-                          inactiveColor: Colors.transparent,
-                          value: _volume,
-                          min: 0.0,
-                          max: 100.0,
-                          divisions: 10,
-                          label: '${(_volume).round()}',
-                          onChanged: _isPlayerReady
-                              ? (value) {
-                                  setState(() {
-                                    _volume = value;
-                                  });
-                                  _controller.setVolume(_volume.round());
-                                }
-                              : null,
-                        ),
-                      ),
-                    ],
-                  ),
-                  _space,
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 800),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      color: _getStateColor(_playerState),
-                    ),
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      _playerState.toString(),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w300,
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -525,84 +399,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Color _getStateColor(PlayerState state) {
-    switch (state) {
-      case PlayerState.unknown:
-        return Colors.grey[700];
-      case PlayerState.unStarted:
-        return Colors.pink;
-      case PlayerState.ended:
-        return Colors.red;
-      case PlayerState.playing:
-        return Colors.blueAccent;
-      case PlayerState.paused:
-        return Colors.orange;
-      case PlayerState.buffering:
-        return Colors.yellow;
-      case PlayerState.cued:
-        return Colors.blue[900];
-      default:
-        return Colors.blue;
-    }
-  }
-
   Widget get _space => const SizedBox(height: 10);
-
-  Widget _loadCueButton(String action) {
-    return Expanded(
-      child: MaterialButton(
-        color: Colors.blueAccent,
-        onPressed:
-            // _isPlayerReady ?
-            () {
-          if (action == 'LOAD') {
-            // streamController.sink.add(Colors.deepPurpleAccent);
-            thumbnailsStream.sink.add(_thumbnails);
-            // _controller.load(id);
-          }
-          if (action == 'CUE') {
-            streamController.sink.add(Colors.deepOrangeAccent);
-            // _controller.load(id);
-          }
-          // if (_idController.text.isNotEmpty) {
-          //   var id = YoutubePlayer.convertUrlToId(
-          //     _idController.text,
-          //   );
-          //   if (action == 'LOAD') {
-          //     streamController.sink.add(Colors.deepPurpleAccent);
-          //     // _controller.load(id);
-          //   }
-          //   if (action == 'CUE') _controller.cue(id);
-          //   FocusScope.of(context).requestFocus(FocusNode());
-          // } else {
-          //   _showSnackBar('Source can\'t be empty!');
-          // }
-        }
-        // : null,
-        ,
-        disabledColor: Colors.grey,
-        disabledTextColor: Colors.black,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 14.0),
-          child: Text(
-            action,
-            style: const TextStyle(
-              fontSize: 18.0,
-              color: Colors.white,
-              fontWeight: FontWeight.w300,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-    );
-  }
 
   searchSubmit(String keyword) async {
     String url =
         'https://www.googleapis.com/youtube/v3/search?part=snippet&q=$keyword&type=video&key=AIzaSyDttOKxJNffVQ2D5R1zSHz_2vozDHfEFBM&maxResults=6';
-    String accessToken =
-        'ya29.a0AfH6SMCPrq1Z8dbeAntHoS_qgRIUkWtUiauqTbh6jarTXNIsMUQnj0oRa0d8xMxFIohxFshl9rTYkVNsA66hlpepupJHjNqz_SuMd7o94990Q7FJbtjn1CxQtWnINspWfLoGNuXUNe4MivlMioydzD4bY8_Hxhb0Iaw';
+    // String accessToken = 'ya29.a0AfH6SMCPrq1Z8dbeAntHoS_qgRIUkWtUiauqTbh6jarTXNIsMUQnj0oRa0d8xMxFIohxFshl9rTYkVNsA66hlpepupJHjNqz_SuMd7o94990Q7FJbtjn1CxQtWnINspWfLoGNuXUNe4MivlMioydzD4bY8_Hxhb0Iaw';
     http.Response response = await http.get(url);
     // http.Response response = await http.get(url,
     //     headers: {"Authorization" : 'Bearer ' + accessToken}
@@ -613,6 +415,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
     List<dynamic> thumbs =
         items.map((e) => e['snippet']['thumbnails']['default']['url']).toList();
+    _thumbnails = thumbs;
+
+    List<dynamic> ids = items.map((e) => e['id']['videoId']).toList();
+    _ids = ids;
+
     thumbnailsStream.sink.add(thumbs);
+
+    _isPlayerReady ? _controller.load(items[0]['id']['videoId']) : null;
+  }
+
+  onClickThumbnail(int index) async {
+    _isPlayerReady ? _controller.load(_ids[index]) : null;
+    // http.Response response = await http.get(url);
   }
 }
