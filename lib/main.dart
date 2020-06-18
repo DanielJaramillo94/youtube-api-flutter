@@ -62,32 +62,32 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final searchController = TextEditingController();
 
-  StreamController<dynamic> streamController = StreamController();
   StreamController<dynamic> thumbnailsStream = StreamController();
 
-  PlayerState _playerState;
   YoutubeMetaData _videoMetaData;
-  double _volume = 100;
-  bool _muted = false;
   bool _isPlayerReady = false;
 
   List<dynamic> _ids = [
     'KzTeWPkUxQs',
     'cILHRB8Syng',
-    '14ORlUCJhm4',
+    'D77DeiIOv14',
     'Qely-s0qRaY',
-    'x0uinJvhNxI',
+    '14ORlUCJhm4',
     'XHsrxgoESz8',
   ];
 
   List<dynamic> _thumbnails = [
-    'https://i.ytimg.com/vi/KzTeWPkUxQs/default.jpg',
-    'https://i.ytimg.com/vi/cILHRB8Syng/default.jpg',
-    'https://i.ytimg.com/vi/14ORlUCJhm4/default.jpg',
-    'https://i.ytimg.com/vi/Qely-s0qRaY/default.jpg',
-    'https://i.ytimg.com/vi/D77DeiIOv14/default.jpg',
-    'https://i.ytimg.com/vi/XHsrxgoESz8/default.jpg',
+    'https://i.ytimg.com/vi/KzTeWPkUxQs/mqdefault.jpg',
+    'https://i.ytimg.com/vi/cILHRB8Syng/mqdefault.jpg',
+    'https://i.ytimg.com/vi/D77DeiIOv14/mqdefault.jpg',
+    'https://i.ytimg.com/vi/Qely-s0qRaY/mqdefault.jpg',
+    'https://i.ytimg.com/vi/14ORlUCJhm4/mqdefault.jpg',
+    'https://i.ytimg.com/vi/XHsrxgoESz8/mqdefault.jpg',
   ];
+
+  String videoTitle = 'Flutter Presentación en Español';
+  String videoDescription =
+      'Martin Aguinis presenta sobre Flutter en Español durante México Partner Day. Flutter es el kit UI portátil de Google para crear aplicaciones nativas para móvil, web, y desktop desde una sola código base. Esta utilizado por marcas globalmente para aplicaciones con cientos de millones de usuarios. Ésta sesión presenta a Flutter, muestra la codificación en vivo de una aplicación, habla sobre casos de éxito de marcas que utilizan Flutter y mostrará el futuro del producto';
 
   @override
   void initState() {
@@ -107,7 +107,6 @@ class _MyHomePageState extends State<MyHomePage> {
     _idController = TextEditingController();
     _seekToController = TextEditingController();
     _videoMetaData = const YoutubeMetaData();
-    _playerState = PlayerState.unknown;
 
     thumbnailsStream.sink.add(_thumbnails);
   }
@@ -115,7 +114,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void listener() {
     if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
       setState(() {
-        _playerState = _controller.value.playerState;
         _videoMetaData = _controller.metadata;
       });
     }
@@ -174,11 +172,6 @@ class _MyHomePageState extends State<MyHomePage> {
         onReady: () {
           _isPlayerReady = true;
         },
-        // onEnded: (data) {
-        //   _controller
-        //       .load(_ids[(_ids.indexOf(data.videoId) + 1) % _ids.length]);
-        //   _showSnackBar('Next Video Started!');
-        // },
       ),
       builder: (context, player) => Scaffold(
         key: _scaffoldKey,
@@ -234,6 +227,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         body: ListView(
+          addAutomaticKeepAlives: false,
+          cacheExtent: 9999,
           children: [
             _space,
             // 6 videos pannel
@@ -255,12 +250,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0),
                                   child: Container(
-                                    width: 100,
+                                    width: 120,
                                     height: 80,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(snapshot.data[0]),
-                                          fit: BoxFit.contain),
+                                          fit: BoxFit.fill),
                                     ),
                                   ),
                                 ),
@@ -273,12 +268,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0),
                                   child: Container(
-                                    width: 100,
+                                    width: 120,
                                     height: 80,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(snapshot.data[1]),
-                                          fit: BoxFit.contain),
+                                          fit: BoxFit.fill),
                                     ),
                                   ),
                                 ),
@@ -291,12 +286,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0),
                                   child: Container(
-                                    width: 100,
+                                    width: 120,
                                     height: 80,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(snapshot.data[2]),
-                                          fit: BoxFit.contain),
+                                          fit: BoxFit.fill),
                                     ),
                                   ),
                                 ),
@@ -309,12 +304,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0),
                                   child: Container(
-                                    width: 100,
+                                    width: 120,
                                     height: 80,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(snapshot.data[3]),
-                                          fit: BoxFit.contain),
+                                          fit: BoxFit.fill),
                                     ),
                                   ),
                                 ),
@@ -327,12 +322,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0),
                                   child: Container(
-                                    width: 100,
+                                    width: 120,
                                     height: 80,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(snapshot.data[4]),
-                                          fit: BoxFit.contain),
+                                          fit: BoxFit.fill),
                                     ),
                                   ),
                                 ),
@@ -345,12 +340,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0),
                                   child: Container(
-                                    width: 100,
+                                    width: 120,
                                     height: 80,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(snapshot.data[5]),
-                                          fit: BoxFit.contain),
+                                          fit: BoxFit.fill),
                                     ),
                                   ),
                                 ),
@@ -368,14 +363,29 @@ class _MyHomePageState extends State<MyHomePage> {
               child: player,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(15.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   _space,
-                  _text('Title', _videoMetaData.title),
+                  Text(
+                    videoTitle,
+                    style: const TextStyle(
+                      color: Color(0xFF333333),
+                      fontSize: 23.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                   _space,
-                  _text('Channel', _videoMetaData.author),
+                  _space,
+                  Text(
+                    videoDescription,
+                    style: const TextStyle(
+                      color: Color(0xFF333333),
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
                   _space,
                 ],
               ),
@@ -386,55 +396,41 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _text(String title, String value) {
-    return RichText(
-      text: TextSpan(
-        text: '$title : ',
-        style: const TextStyle(
-          color: Colors.blueAccent,
-          fontWeight: FontWeight.bold,
-        ),
-        children: [
-          TextSpan(
-            text: value ?? '',
-            style: const TextStyle(
-              color: Colors.blueAccent,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget get _space => const SizedBox(height: 10);
 
   searchSubmit(String keyword) async {
     String url =
         'https://www.googleapis.com/youtube/v3/search?part=snippet&q=$keyword&type=video&key=AIzaSyDttOKxJNffVQ2D5R1zSHz_2vozDHfEFBM&maxResults=6';
-    // String accessToken = 'ya29.a0AfH6SMCPrq1Z8dbeAntHoS_qgRIUkWtUiauqTbh6jarTXNIsMUQnj0oRa0d8xMxFIohxFshl9rTYkVNsA66hlpepupJHjNqz_SuMd7o94990Q7FJbtjn1CxQtWnINspWfLoGNuXUNe4MivlMioydzD4bY8_Hxhb0Iaw';
     http.Response response = await http.get(url);
-    // http.Response response = await http.get(url,
-    //     headers: {"Authorization" : 'Bearer ' + accessToken}
-    //     );
 
     Map data = json.decode(response.body);
     List<dynamic> items = data['items'];
 
     List<dynamic> thumbs =
-        items.map((e) => e['snippet']['thumbnails']['default']['url']).toList();
+        items.map((e) => e['snippet']['thumbnails']['medium']['url']).toList();
     _thumbnails = thumbs;
 
     List<dynamic> ids = items.map((e) => e['id']['videoId']).toList();
     _ids = ids;
 
     thumbnailsStream.sink.add(thumbs);
-
     _isPlayerReady ? _controller.load(items[0]['id']['videoId']) : null;
   }
 
   onClickThumbnail(int index) async {
     _isPlayerReady ? _controller.load(_ids[index]) : null;
-    // http.Response response = await http.get(url);
+    String videoInfoUrl =
+        'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${_ids[index]}&key=AIzaSyDttOKxJNffVQ2D5R1zSHz_2vozDHfEFBM';
+
+    http.Response response = await http.get(videoInfoUrl);
+
+    Map data = json.decode(response.body);
+    Map item = data['items'][0]['snippet'];
+
+    String title = item['title'];
+    String description = item['description'];
+
+    videoTitle = title;
+    videoDescription = description;
   }
 }
