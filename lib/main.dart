@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
+
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +62,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final searchController = TextEditingController();
 
+  StreamController<dynamic> streamController = StreamController();
+  StreamController<dynamic> thumbnailsStream = StreamController();
+
+  // addData() async {
+  //   List<Color> colors = [Colors.red, Colors.blueAccent];
+  //   for (int i = 0; i < 2; i++) {
+  //     await Future.delayed(Duration(seconds: 2));
+  //     streamController.sink.add(colors[i]);
+  //     if (i == 1) {
+  //       i = -1;
+  //     }
+  //   }
+  // }
+
   PlayerState _playerState;
   YoutubeMetaData _videoMetaData;
   double _volume = 100;
@@ -65,15 +83,16 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isPlayerReady = false;
 
   final List<String> _ids = [
-    'gQDByCdjUXw',
-    'nPt8bK2gbaU',
-    'iLnmTe5Q2Qw',
-    '_WoCV4c6XOE',
-    'KmzdUe0RSJo',
-    '6jZDSSZZxjQ',
-    'p2lYr3vM_1w',
-    '7QUtEmBT_-w',
-    '34_PXCzGw1M',
+    'KzTeWPkUxQs',
+  ];
+
+  final List<String> _thumbnails = [
+    'https://i.ytimg.com/vi/KzTeWPkUxQs/default.jpg',
+    'https://i.ytimg.com/vi/cILHRB8Syng/default.jpg',
+    'https://i.ytimg.com/vi/Qely-s0qRaY/default.jpg',
+    'https://i.ytimg.com/vi/14ORlUCJhm4/default.jpg',
+    'https://i.ytimg.com/vi/D77DeiIOv14/default.jpg',
+    'https://i.ytimg.com/vi/XHsrxgoESz8/default.jpg',
   ];
 
   @override
@@ -95,6 +114,11 @@ class _MyHomePageState extends State<MyHomePage> {
     _seekToController = TextEditingController();
     _videoMetaData = const YoutubeMetaData();
     _playerState = PlayerState.unknown;
+
+    thumbnailsStream.sink.add(_thumbnails);
+
+    // searchController.addListener(() => {log(searchController.text)});
+    // addData();
   }
 
   void listener() {
@@ -180,6 +204,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 30,
                 child: TextField(
                   controller: searchController,
+                  onSubmitted: (value) {
+                    searchSubmit(value);
+                    // streamController.sink.add(Colors.yellowAccent);
+                  },
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(
                       left: 10,
@@ -210,31 +238,109 @@ class _MyHomePageState extends State<MyHomePage> {
         body: ListView(
           children: [
             _space,
+            // 6 videos pannel
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  // children: getServiceWidgetsList(servicesList),
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.redAccent,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  scrollDirection: Axis.horizontal,
+                  child: StreamBuilder(
+                      // stream: new Stream.fromIterable(
+                      //     [Colors.blueAccent, Colors.deepPurpleAccent]),
+                      stream: thumbnailsStream.stream,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Row(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Container(
+                                  width: 100,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(snapshot.data[0]),
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Container(
+                                  width: 100,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(snapshot.data[1]),
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Container(
+                                  width: 100,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(snapshot.data[2]),
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Container(
+                                  width: 100,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(snapshot.data[3]),
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Container(
+                                  width: 100,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(snapshot.data[4]),
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Container(
+                                  width: 100,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(snapshot.data[5]),
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Text('No data');
+                        }
+                      })),
             ),
             _space,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: player,
             ),
-            // player,
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -262,24 +368,25 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                   _space,
-                  TextField(
-                    enabled: _isPlayerReady,
-                    controller: _idController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Enter youtube \<video id\> or \<link\>',
-                      fillColor: Colors.blueAccent.withAlpha(20),
-                      filled: true,
-                      hintStyle: const TextStyle(
-                        fontWeight: FontWeight.w300,
-                        color: Colors.blueAccent,
-                      ),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () => _idController.clear(),
-                      ),
-                    ),
-                  ),
+                  // TextField(
+                  //   enabled: _isPlayerReady,
+                  //   controller: _idController,
+                  //   decoration: InputDecoration(
+                  //     border: InputBorder.none,
+                  //     hintText: 'Enter youtube \<video id\> or \<link\>',
+                  //     fillColor: Colors.blueAccent.withAlpha(20),
+                  //     filled: true,
+                  //     hintStyle: const TextStyle(
+                  //       fontWeight: FontWeight.w300,
+                  //       color: Colors.blueAccent,
+                  //     ),
+                  //     suffixIcon: IconButton(
+                  //       icon: const Icon(Icons.clear),
+                  //       onPressed: () => _idController.clear(),
+                  //     ),
+                  //   ),
+                  // ),
+
                   _space,
                   Row(
                     children: [
@@ -445,20 +552,34 @@ class _MyHomePageState extends State<MyHomePage> {
     return Expanded(
       child: MaterialButton(
         color: Colors.blueAccent,
-        onPressed: _isPlayerReady
-            ? () {
-                if (_idController.text.isNotEmpty) {
-                  var id = YoutubePlayer.convertUrlToId(
-                    _idController.text,
-                  );
-                  if (action == 'LOAD') _controller.load(id);
-                  if (action == 'CUE') _controller.cue(id);
-                  FocusScope.of(context).requestFocus(FocusNode());
-                } else {
-                  _showSnackBar('Source can\'t be empty!');
-                }
-              }
-            : null,
+        onPressed:
+            // _isPlayerReady ?
+            () {
+          if (action == 'LOAD') {
+            // streamController.sink.add(Colors.deepPurpleAccent);
+            thumbnailsStream.sink.add(_thumbnails);
+            // _controller.load(id);
+          }
+          if (action == 'CUE') {
+            streamController.sink.add(Colors.deepOrangeAccent);
+            // _controller.load(id);
+          }
+          // if (_idController.text.isNotEmpty) {
+          //   var id = YoutubePlayer.convertUrlToId(
+          //     _idController.text,
+          //   );
+          //   if (action == 'LOAD') {
+          //     streamController.sink.add(Colors.deepPurpleAccent);
+          //     // _controller.load(id);
+          //   }
+          //   if (action == 'CUE') _controller.cue(id);
+          //   FocusScope.of(context).requestFocus(FocusNode());
+          // } else {
+          //   _showSnackBar('Source can\'t be empty!');
+          // }
+        }
+        // : null,
+        ,
         disabledColor: Colors.grey,
         disabledTextColor: Colors.black,
         child: Padding(
@@ -477,24 +598,21 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _showSnackBar(String message) {
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        content: Text(
-          message,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontWeight: FontWeight.w300,
-            fontSize: 16.0,
-          ),
-        ),
-        backgroundColor: Colors.blueAccent,
-        behavior: SnackBarBehavior.floating,
-        elevation: 1.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.0),
-        ),
-      ),
-    );
+  searchSubmit(String keyword) async {
+    String url =
+        'https://www.googleapis.com/youtube/v3/search?part=snippet&q=$keyword&type=video&key=AIzaSyDttOKxJNffVQ2D5R1zSHz_2vozDHfEFBM&maxResults=6';
+    String accessToken =
+        'ya29.a0AfH6SMCPrq1Z8dbeAntHoS_qgRIUkWtUiauqTbh6jarTXNIsMUQnj0oRa0d8xMxFIohxFshl9rTYkVNsA66hlpepupJHjNqz_SuMd7o94990Q7FJbtjn1CxQtWnINspWfLoGNuXUNe4MivlMioydzD4bY8_Hxhb0Iaw';
+    http.Response response = await http.get(url);
+    // http.Response response = await http.get(url,
+    //     headers: {"Authorization" : 'Bearer ' + accessToken}
+    //     );
+
+    Map data = json.decode(response.body);
+    List<dynamic> items = data['items'];
+
+    List<dynamic> thumbs =
+        items.map((e) => e['snippet']['thumbnails']['default']['url']).toList();
+    thumbnailsStream.sink.add(thumbs);
   }
 }

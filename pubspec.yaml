@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   youtube_player_flutter: ^7.0.0+3
+  http: ^0.12.1
 
   cupertino_icons: ^0.1.3
 
