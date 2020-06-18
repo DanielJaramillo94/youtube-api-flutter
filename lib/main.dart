@@ -14,7 +14,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: Colors.blueAccent,
+      statusBarColor: Color(0xA1CB00),
     ),
   );
   runApp(YoutubePlayerDemoApp());
@@ -30,7 +30,7 @@ class YoutubePlayerDemoApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         appBarTheme: const AppBarTheme(
-          color: Colors.blueAccent,
+          color: Color(0xFFA1CB00),
           textTheme: TextTheme(
             headline6: TextStyle(
               color: Colors.white,
@@ -184,11 +184,19 @@ class _MyHomePageState extends State<MyHomePage> {
         key: _scaffoldKey,
         appBar: AppBar(
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              const Text(
-                'Exp',
-                style: TextStyle(color: Colors.white),
+              Container(
+                width: 40,
+                height: 35,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/exp-logo.png'),
+                      fit: BoxFit.contain),
+                ),
+              ),
+              SizedBox(
+                width: 30,
               ),
               Container(
                 width: 200,
@@ -248,11 +256,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       horizontal: 8.0),
                                   child: Container(
                                     width: 100,
-                                    height: 60,
+                                    height: 80,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(snapshot.data[0]),
-                                          fit: BoxFit.cover),
+                                          fit: BoxFit.contain),
                                     ),
                                   ),
                                 ),
@@ -266,11 +274,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       horizontal: 8.0),
                                   child: Container(
                                     width: 100,
-                                    height: 60,
+                                    height: 80,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(snapshot.data[1]),
-                                          fit: BoxFit.cover),
+                                          fit: BoxFit.contain),
                                     ),
                                   ),
                                 ),
@@ -284,11 +292,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       horizontal: 8.0),
                                   child: Container(
                                     width: 100,
-                                    height: 60,
+                                    height: 80,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(snapshot.data[2]),
-                                          fit: BoxFit.cover),
+                                          fit: BoxFit.contain),
                                     ),
                                   ),
                                 ),
@@ -302,11 +310,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       horizontal: 8.0),
                                   child: Container(
                                     width: 100,
-                                    height: 60,
+                                    height: 80,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(snapshot.data[3]),
-                                          fit: BoxFit.cover),
+                                          fit: BoxFit.contain),
                                     ),
                                   ),
                                 ),
@@ -320,11 +328,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       horizontal: 8.0),
                                   child: Container(
                                     width: 100,
-                                    height: 60,
+                                    height: 80,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(snapshot.data[4]),
-                                          fit: BoxFit.cover),
+                                          fit: BoxFit.contain),
                                     ),
                                   ),
                                 ),
@@ -338,11 +346,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       horizontal: 8.0),
                                   child: Container(
                                     width: 100,
-                                    height: 60,
+                                    height: 80,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(snapshot.data[5]),
-                                          fit: BoxFit.cover),
+                                          fit: BoxFit.contain),
                                     ),
                                   ),
                                 ),
