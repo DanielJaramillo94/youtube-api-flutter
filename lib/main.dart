@@ -364,7 +364,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: player,
             ),
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.only(left: 40.0, right: 35.0, top: 15.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
